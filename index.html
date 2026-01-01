@@ -3,328 +3,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دورة التداول الاحترافية | من الصفر إلى فهم السوق</title>
+    <title>دورة التداول الاحترافية - من الصفر إلى فهم السوق</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* متغيرات الألوان للوضع النهاري */
         :root {
-            /* ألوان الوضع النهاري */
-            --primary-color: #2c5aa0;
-            --secondary-color: #4a7bc8;
-            --accent-color: #ff9800;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #1abc9c;
             --light-color: #f8f9fa;
             --dark-color: #343a40;
             --text-color: #333;
-            --bg-color: #ffffff;
-            --card-bg: #f8f9fa;
-            --border-color: #dee2e6;
-            --sidebar-bg: #f1f5f9;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-            
-            /* ألوان الانتقال */
+            --text-light: #6c757d;
+            --background-color: #ffffff;
+            --card-background: #f8f9fa;
+            --border-color: #eaeaea;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --hover-color: #f0f0f0;
+            --week-color: #27ae60;
+            --session-color: #3498db;
+            --slide-color: #9b59b6;
             --transition-speed: 0.3s;
         }
-        
-        /* ألوان الوضع الليلي */
+
+        /* متغيرات الألوان للوضع الليلي */
         .dark-mode {
-            --primary-color: #4a7bc8;
-            --secondary-color: #6c9ae4;
-            --accent-color: #ffb74d;
-            --light-color: #1e293b;
-            --dark-color: #0f172a;
-            --text-color: #e2e8f0;
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --border-color: #334155;
-            --sidebar-bg: #1e293b;
-            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            --hover-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f8b8d;
+            --light-color: #2d4059;
+            --dark-color: #0f3460;
+            --text-color: #e4e4e4;
+            --text-light: #b0b0b0;
+            --background-color: #121212;
+            --card-background: #1e1e1e;
+            --border-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --hover-color: #2a2a2a;
+            --week-color: #2ecc71;
+            --session-color: #3498db;
+            --slide-color: #9b59b6;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
+            background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
             transition: background-color var(--transition-speed), color var(--transition-speed);
         }
-        
-        /* شريط التنقل العلوي */
-        .navbar {
+
+        /* الهيدر */
+        header {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 12px var(--shadow-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: var(--shadow);
         }
-        
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .logo i {
             font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
         }
-        
-        .nav-controls {
+
+        .logo i {
+            margin-left: 0.5rem;
+        }
+
+        .header-controls {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1.5rem;
         }
-        
+
         /* زر الوضع الليلي */
         .theme-toggle {
-            background: none;
+            background: var(--secondary-color);
             border: none;
-            color: white;
-            font-size: 1.5rem;
+            border-radius: 50px;
+            width: 60px;
+            height: 30px;
+            position: relative;
             cursor: pointer;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
+            padding: 0 5px;
+            transition: background-color var(--transition-speed);
         }
-        
-        .theme-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            transition: transform var(--transition-speed);
+            right: 3px;
         }
-        
+
+        .dark-mode .theme-toggle::before {
+            transform: translateX(-30px);
+        }
+
+        .theme-toggle i {
+            color: white;
+            font-size: 0.9rem;
+            position: absolute;
+        }
+
+        .fa-sun {
+            right: 7px;
+        }
+
+        .fa-moon {
+            left: 7px;
+        }
+
         /* المحتوى الرئيسي */
         .container {
             display: flex;
             min-height: calc(100vh - 80px);
         }
-        
+
         /* الشريط الجانبي */
         .sidebar {
             width: 300px;
-            background-color: var(--sidebar-bg);
+            background-color: var(--card-background);
+            border-left: 1px solid var(--border-color);
             padding: 1.5rem;
             overflow-y: auto;
-            border-left: 1px solid var(--border-color);
-            transition: all var(--transition-speed);
+            transition: width var(--transition-speed);
         }
-        
-        .sidebar-header {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--primary-color);
-        }
-        
-        .sidebar-header h2 {
-            color: var(--primary-color);
-            font-size: 1.3rem;
-        }
-        
-        /* الأسابيع والدروس */
-        .week {
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
+
+        .sidebar.collapsed {
+            width: 0;
+            padding: 0;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all var(--transition-speed);
         }
-        
+
+        .toggle-sidebar {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .sidebar h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .weeks-container {
+            margin-bottom: 2rem;
+        }
+
+        .week {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 3px 6px var(--shadow-color);
+            transition: transform var(--transition-speed);
+        }
+
+        .week:hover {
+            transform: translateY(-3px);
+        }
+
         .week-header {
-            background-color: var(--primary-color);
+            background-color: var(--week-color);
             color: white;
             padding: 0.8rem 1rem;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
+            font-weight: bold;
         }
-        
-        .week-header h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
+
+        .week-header i {
+            transition: transform var(--transition-speed);
         }
-        
-        .week-content {
-            background-color: var(--card-bg);
+
+        .week-header.active i {
+            transform: rotate(180deg);
+        }
+
+        .sessions-container {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease;
+            transition: max-height var(--transition-speed);
         }
-        
-        .week.active .week-content {
+
+        .sessions-container.show {
             max-height: 1000px;
         }
-        
-        .lesson {
-            padding: 0.9rem 1rem;
+
+        .session {
+            padding: 0.8rem 1rem;
             border-bottom: 1px solid var(--border-color);
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: background-color var(--transition-speed);
         }
-        
-        .lesson:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+
+        .session:hover {
+            background-color: var(--hover-color);
         }
-        
-        .dark-mode .lesson:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-        
-        .lesson.active {
+
+        .session.active {
             background-color: var(--secondary-color);
             color: white;
         }
-        
-        .lesson-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+        .session i {
+            margin-left: 0.5rem;
+            color: var(--session-color);
         }
-        
-        .lesson-title span {
-            font-weight: 600;
+
+        .session.active i {
+            color: white;
         }
-        
-        /* منطقة المحتوى الرئيسي */
-        .content {
+
+        /* منطقة عرض المحتوى */
+        .content-area {
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
         }
-        
-        .slide-container {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
+
+        .content-header {
             margin-bottom: 2rem;
-            transition: all var(--transition-speed);
-        }
-        
-        .slide-header {
-            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid var(--accent-color);
         }
-        
-        .slide-header h2 {
-            color: var(--primary-color);
+
+        .content-header h2 {
+            color: var(--accent-color);
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
-        
-        .slide-content {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-        
-        .slide-content p {
-            margin-bottom: 1rem;
-        }
-        
-        .teacher-explanation {
-            background-color: rgba(74, 123, 200, 0.1);
-            border-right: 4px solid var(--secondary-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1.5rem;
-        }
-        
-        .teacher-explanation h4 {
-            color: var(--primary-color);
-            margin-bottom: 0.8rem;
+
+        .progress-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
+            margin-top: 1rem;
         }
-        
-        .teacher-explanation h4 i {
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* شرائح المحتوى */
+        .slides-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .slide {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            border-right: 4px solid var(--slide-color);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+        }
+
+        .slide:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px var(--shadow-color);
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .slide-title {
+            color: var(--slide-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .slide-number {
+            background-color: var(--slide-color);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .slide-content {
+            margin-bottom: 1.2rem;
+        }
+
+        .slide-content h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-explanation {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 1rem;
+            border-right: 3px solid var(--accent-color);
+            font-style: italic;
+            margin-top: 1rem;
+        }
+
+        .teacher-explanation h5 {
             color: var(--accent-color);
+            margin-bottom: 0.5rem;
         }
-        
-        /* التنقل بين الشرائح */
-        .slide-nav {
+
+        /* عناصر التحكم */
+        .controls {
             display: flex;
             justify-content: space-between;
             margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--border-color);
         }
-        
-        .nav-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
+
+        .btn {
             padding: 0.8rem 1.5rem;
-            border-radius: 5px;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 600;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: background-color 0.3s, transform 0.2s;
+            gap: 0.5rem;
+            transition: all var(--transition-speed);
         }
-        
-        .nav-btn:hover {
+
+        .btn-primary {
             background-color: var(--secondary-color);
-            transform: translateY(-2px);
+            color: white;
         }
-        
-        .nav-btn:active {
-            transform: translateY(0);
+
+        .btn-primary:hover {
+            background-color: var(--primary-color);
         }
-        
-        .nav-btn:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
+
+        .btn-secondary {
+            background-color: var(--light-color);
+            color: var(--text-color);
         }
-        
-        /* شريط التقدم */
-        .progress-container {
-            margin-bottom: 2rem;
+
+        .btn-secondary:hover {
+            background-color: var(--hover-color);
         }
-        
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
+
+        /* الفوتر */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
         }
-        
-        .progress-bar {
-            height: 10px;
-            background-color: var(--border-color);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background-color: var(--accent-color);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
+
         /* تصميم متجاوب */
         @media (max-width: 992px) {
             .container {
@@ -337,237 +425,525 @@
                 border-left: none;
                 border-bottom: 1px solid var(--border-color);
             }
+            
+            .sidebar.collapsed {
+                max-height: 0;
+            }
+            
+            .toggle-sidebar {
+                display: block;
+            }
         }
-        
-        @media (max-width: 576px) {
-            .navbar {
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
                 padding: 1rem;
             }
             
-            .logo h1 {
-                font-size: 1.2rem;
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
             }
             
-            .content {
-                padding: 1rem;
-            }
-            
-            .slide-container {
+            .content-area {
                 padding: 1.5rem;
             }
             
-            .slide-nav {
+            .controls {
                 flex-direction: column;
-                gap: 10px;
+                gap: 1rem;
             }
             
-            .nav-btn {
+            .btn {
                 width: 100%;
                 justify-content: center;
             }
         }
-        
-        /* تأثيرات إضافية */
-        .highlight {
-            color: var(--accent-color);
-            font-weight: 700;
-        }
-        
-        .badge {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .week-badge {
-            background-color: white;
-            color: var(--primary-color);
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .dark-mode .week-badge {
-            background-color: var(--dark-color);
-            color: white;
-        }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
-    <!-- شريط التنقل العلوي -->
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-chart-line"></i>
-            <h1>دورة التداول الاحترافية</h1>
-        </div>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-        </div>
-    </nav>
-    
-    <!-- المحتوى الرئيسي -->
-    <div class="container">
-        <!-- الشريط الجانبي -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>مخطط الدورة التدريبية</h2>
+    <!-- الهيدر -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                دورة التداول الاحترافية
             </div>
-            
-            <!-- سيتم ملء الأسابيع والدروس بواسطة JavaScript -->
-            <div id="weeksList"></div>
-        </aside>
+            <span>من الصفر إلى فهم السوق</span>
+        </div>
         
-        <!-- منطقة المحتوى الرئيسي -->
-        <main class="content">
-            <!-- شريط التقدم -->
+        <div class="header-controls">
             <div class="progress-container">
-                <div class="progress-header">
-                    <span>تقدم الدورة</span>
-                    <span id="progressText">0%</span>
-                </div>
+                <span>التقدم: </span>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
+                <span id="progressText">0%</span>
             </div>
             
-            <!-- منطقة عرض المحتوى -->
-            <div class="slide-container fade-in" id="slideContainer">
-                <div class="slide-header">
-                    <h2 id="slideTitle">مرحبًا في دورة التداول الاحترافية</h2>
-                    <div id="slideSubtitle"></div>
-                </div>
-                
-                <div class="slide-content" id="slideContent">
-                    <p>مرحبًا بك في دورة التداول الاحترافية "من الصفر إلى فهم السوق".</p>
-                    <p>اختر أحد الدروس من الشريط الجانبي للبدء في رحلة تعلم التداول.</p>
-                    <p>تم تصميم هذه الدورة لتزودك بالأساسيات الصحيحة لفهم الأسواق المالية وكيفية تحليلها.</p>
-                </div>
-                
-                <div class="teacher-explanation" id="teacherExplanation">
-                    <h4><i class="fas fa-chalkboard-teacher"></i> شرح المدرّس</h4>
-                    <p id="explanationText">استخدم القائمة الجانبية للتنقل بين دروس الدورة. يمكنك تغيير الوضع إلى الليلي من خلال الزر أعلى الصفحة.</p>
-                </div>
-                
-                <!-- أزرار التنقل -->
-                <div class="slide-nav">
-                    <button class="nav-btn" id="prevBtn" disabled>
-                        <i class="fas fa-arrow-right"></i> السابق
-                    </button>
-                    <button class="nav-btn" id="nextBtn">
-                        التالي <i class="fas fa-arrow-left"></i>
-                    </button>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- زر تبديل الشريط الجانبي للهواتف -->
+    <button class="toggle-sidebar" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- الشريط الجانبي -->
+        <div class="sidebar" id="sidebar">
+            <h3><i class="fas fa-list-ol"></i> محتوى الدورة</h3>
+            
+            <div class="weeks-container" id="weeksContainer">
+                <!-- سيتم إضافة الأسابيع ديناميكيًا بواسطة JavaScript -->
+            </div>
+        </div>
+        
+        <!-- منطقة عرض المحتوى -->
+        <div class="content-area">
+            <div class="content-header">
+                <h2 id="currentSessionTitle">حدد حصة من القائمة</h2>
+                <p id="currentWeekTitle">لبداية تصفح الدورة، اختر أسبوعًا ثم حصة من القائمة الجانبية</p>
+            </div>
+            
+            <div class="slides-container" id="slidesContainer">
+                <!-- سيتم عرض الشرائح هنا ديناميكيًا -->
+                <div class="welcome-message slide">
+                    <div class="slide-header">
+                        <div class="slide-title">مرحبًا بك في دورة التداول الاحترافية</div>
+                    </div>
+                    <div class="slide-content">
+                        <p>هذه الدورة مصممة لمساعدتك على فهم أساسيات التداول بشكل احترافي. استخدم القائمة الجانبية للتنقل بين أسابيع الدورة وشرائحها.</p>
+                        <p>يمكنك تبديل الوضع الليلي/النهاري باستخدام الزر في الأعلى للحصول على تجربة قراءة مريحة.</p>
+                    </div>
                 </div>
             </div>
-        </main>
+            
+            <div class="controls">
+                <button class="btn btn-secondary" id="prevSlideBtn">
+                    <i class="fas fa-arrow-right"></i> الشريحة السابقة
+                </button>
+                <button class="btn btn-primary" id="nextSlideBtn">
+                    الشريحة التالية <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
+    <!-- الفوتر -->
+    <footer>
+        <p>دورة التداول الاحترافية - إعداد: [اسمك] - جميع الحقوق محفوظة © 2023</p>
+        <p>هذه الدورة تعليمية وليست وعدًا بالربح. التداول يحمل مخاطرة خسارة رأس المال.</p>
+    </footer>
+
     <script>
-        // بيانات الدورة التدريبية
+        // بيانات الدورة
         const courseData = [
             {
-                week: 1,
+                weekNumber: 1,
                 title: "الأسبوع 1 – التأسيس: مقدمة التداول وعقلية المتداول",
-                lessons: [
+                sessions: [
                     {
-                        id: 1,
+                        sessionNumber: 1,
                         title: "الحصة 1: مقدمة في التداول",
                         slides: [
                             {
-                                title: "السلايد 1: عنوان الدورة",
-                                content: "<p><span class='highlight'>دورة التداول الاحترافية</span></p><p>من الصفر إلى فهم السوق</p><p>إعداد: [اسمك]</p>",
-                                explanation: "قدم نفسك وهدف الدورة. أكد أنها تعليمية وليست وعد بالربح."
+                                slideNumber: 1,
+                                title: "عنوان الدورة",
+                                content: "دورة التداول الاحترافية<br>من الصفر إلى فهم السوق<br>إعداد: [اسمك]",
+                                teacherExplanation: "قدم نفسك وهدف الدورة. أكد أنها تعليمية وليست وعد بالربح."
                             },
                             {
-                                title: "السلايد 2: ما هو التداول؟",
-                                content: "<p><span class='highlight'>التداول = شراء وبيع أصول مالية</span></p><p>الهدف: الاستفادة من حركة السعر</p><p>التداول عمل قائم على الاحتمالات</p>",
-                                explanation: "التداول ليس حظًا، بل فهم وحساب احتمالات وتحكم بالمخاطرة."
+                                slideNumber: 2,
+                                title: "ما هو التداول؟",
+                                content: "التداول = شراء وبيع أصول مالية<br>الهدف: الاستفادة من حركة السعر<br>التداول عمل قائم على الاحتمالات",
+                                teacherExplanation: "التداول ليس حظًا، بل فهم وحساب احتمالات وتحكم بالمخاطرة."
                             },
                             {
-                                title: "السلايد 3: كيف يتحرك السعر؟",
-                                content: "<p><span class='highlight'>السعر يتحرك بسبب:</span></p><p>العرض والطلب</p><p>أوامر البيع والشراء</p><p>لا يتحرك عشوائيًا</p>",
-                                explanation: "كل شمعة تعكس صراع بين المشترين والبائعين."
+                                slideNumber: 3,
+                                title: "كيف يتحرك السعر؟",
+                                content: "السعر يتحرك بسبب:<br>العرض والطلب<br>أوامر البيع والشراء<br><br>لا يتحرك عشوائيًا",
+                                teacherExplanation: "كل شمعة تعكس صراع بين المشترين والبائعين."
                             },
                             {
-                                title: "السلايد 4: من يحرّك السوق؟",
-                                content: "<p><span class='highlight'>البنوك والمؤسسات</span></p><p>الصناديق الاستثمارية</p><p>المتداولون الأفراد</p>",
-                                explanation: "السوق يتأثر بشكل رئيسي باللاعبين الكبار، الفرد له تأثير محدود."
+                                slideNumber: 4,
+                                title: "من يحرّك السوق؟",
+                                content: "البنوك والمؤسسات<br>الصناديق الاستثمارية<br>المتداولون الأفراد",
+                                teacherExplanation: "السوق يتأثر بشكل رئيسي باللاعبين الكبار، الفرد له تأثير محدود."
                             },
                             {
-                                title: "السلايد 5: التداول ليس ربحًا سريعًا",
-                                content: "<p><span class='highlight'>لا يوجد ربح مضمون</span></p><p>لا توجد طريقة سحرية</p><p>الخسارة جزء من العمل</p>",
-                                explanation: "عرّف الطلاب أن الفشل جزء طبيعي للتعلم."
+                                slideNumber: 5,
+                                title: "التداول ليس ربحًا سريعًا",
+                                content: "لا يوجد ربح مضمون<br>لا توجد طريقة سحرية<br>الخسارة جزء من العمل",
+                                teacherExplanation: "عرّف الطلاب أن الفشل جزء طبيعي للتعلم."
                             },
                             {
-                                title: "السلايد 6: الفرق بين التداول والاستثمار",
-                                content: "<p><span class='highlight'>التداول: قصير إلى متوسط المدى</span></p><p>الاستثمار: طويل المدى</p><p>أدوات مختلفة – عقلية مختلفة</p>",
-                                explanation: "أعط أمثلة واقعية لكل نوع."
+                                slideNumber: 6,
+                                title: "الفرق بين التداول والاستثمار",
+                                content: "التداول: قصير إلى متوسط المدى<br>الاستثمار: طويل المدى<br>أدوات مختلفة – عقلية مختلفة",
+                                teacherExplanation: "أعط أمثلة واقعية لكل نوع."
                             },
                             {
-                                title: "السلايد 7: لماذا تفشل الأغلبية؟",
-                                content: "<p><span class='highlight'>عدم الانضباط</span></p><p>الطمع</p><p>غياب الفهم</p><p>تجاهل إدارة المخاطر</p>",
-                                explanation: "الفشل ناتج عن السلوك وليس الذكاء."
+                                slideNumber: 7,
+                                title: "لماذا تفشل الأغلبية؟",
+                                content: "عدم الانضباط<br>الطمع<br>غياب الفهم<br>تجاهل إدارة المخاطر",
+                                teacherExplanation: "الفشل ناتج عن السلوك وليس الذكاء."
                             },
                             {
-                                title: "السلايد 8: ماذا ستتعلم في هذه الدورة؟",
-                                content: "<p><span class='highlight'>قراءة الشارت</span></p><p>فهم التحليل الفني</p><p>فهم التحليل الأساسي</p><p>التفكير كمحلل لا كمغامر</p>",
-                                explanation: "اربط المحتوى برحلة واضحة للطلاب."
+                                slideNumber: 8,
+                                title: "ماذا ستتعلم في هذه الدورة؟",
+                                content: "قراءة الشارت<br>فهم التحليل الفني<br>فهم التحليل الأساسي<br>التفكير كمحلل لا كمغامر",
+                                teacherExplanation: "اربط المحتوى برحلة واضحة للطلاب."
                             },
                             {
-                                title: "السلايد 9: قواعد الدورة",
-                                content: "<p><span class='highlight'>لا استعجال</span></p><p>لا تداول عشوائي</p><p>الالتزام بالتعلّم</p><p>الأسئلة مرحّب بها</p>",
-                                explanation: "ضع حدودًا واضحة من البداية."
+                                slideNumber: 9,
+                                title: "قواعد الدورة",
+                                content: "لا استعجال<br>لا تداول عشوائي<br>الالتزام بالتعلّم<br>الأسئلة مرحّب بها",
+                                teacherExplanation: "ضع حدودًا واضحة من البداية."
                             },
                             {
-                                title: "السلايد 10: ملخص الحصة",
-                                content: "<p><span class='highlight'>التداول عمل احتمالي</span></p><p>الفهم قبل الربح</p><p>الطريق طويل لكنه واضح</p>",
-                                explanation: "اختصر الحصة بجملة قوية للطلاب ليحتفظوا بها."
+                                slideNumber: 10,
+                                title: "ملخص الحصة",
+                                content: "التداول عمل احتمالي<br>الفهم قبل الربح<br>الطريق طويل لكنه واضح",
+                                teacherExplanation: "اختصر الحصة بجملة قوية للطلاب ليحتفظوا بها."
                             }
                         ]
                     },
                     {
-                        id: 2,
+                        sessionNumber: 2,
                         title: "الحصة 2: أنواع الأسواق والتحليل",
                         slides: [
                             {
-                                title: "السلايد 1: الأسواق المالية",
-                                content: "<p><span class='highlight'>الفوركس</span></p><p>الأسهم</p><p>العملات الرقمية</p><p>المؤشرات</p>",
-                                explanation: "أعط نظرة عامة على كل سوق."
+                                slideNumber: 1,
+                                title: "الأسواق المالية",
+                                content: "الفوركس<br>الأسهم<br>العملات الرقمية<br>المؤشرات",
+                                teacherExplanation: "أعط نظرة عامة على كل سوق."
                             },
                             {
-                                title: "السلايد 2: خصائص كل سوق",
-                                content: "<p><span class='highlight'>الفوركس: سيولة عالية</span></p><p>الأسهم: أخبار وتقارير</p><p>الكريبتو: تقلبات قوية</p>",
-                                explanation: "وضّح سبب اختلاف أسلوب التداول حسب السوق."
+                                slideNumber: 2,
+                                title: "خصائص كل سوق",
+                                content: "الفوركس: سيولة عالية<br>الأسهم: أخبار وتقارير<br>الكريبتو: تقلبات قوية",
+                                teacherExplanation: "وضّح سبب اختلاف أسلوب التداول حسب السوق."
                             },
                             {
-                                title: "السلايد 3: ما هو التحليل الفني؟",
-                                content: "<p><span class='highlight'>دراسة حركة السعر</span></p><p>الاعتماد على الشارت</p><p>قراءة السلوك</p>",
-                                explanation: "الفني لا يتنبأ، بل يقرأ الاتجاهات والسلوك."
+                                slideNumber: 3,
+                                title: "ما هو التحليل الفني؟",
+                                content: "دراسة حركة السعر<br>الاعتماد على الشارت<br>قراءة السلوك",
+                                teacherExplanation: "الفني لا يتنبأ، بل يقرأ الاتجاهات والسلوك."
                             }
                         ]
-                    },
+                    }
+                ]
+            },
+            {
+                weekNumber: 2,
+                title: "الأسبوع 2 – الشارت وبنية السوق",
+                sessions: [
                     {
-                        id: 3,
-                        title: "الحصة 3: عقلية المتداول",
+                        sessionNumber: 4,
+                        title: "الحصة 4: الشارت والفريمات",
                         slides: [
                             {
-                                title: "السلايد 1: التداول لعبة نفسية",
-                                content: "<p><span class='highlight'>السوق لا يهتم بمشاعرك</span></p><p>القرار الخاطئ = خسارة</p>",
-                                explanation: "هيئ الطلاب نفسيًا للتركيز على الانضباط."
+                                slideNumber: 1,
+                                title: "ما هو الشارت؟",
+                                content: "الشارت = تمثيل حركة السعر<br>السعر عبر الزمن<br>لغة السوق",
+                                teacherExplanation: "الشارت ليس مجرد خطوط بل تمثيل حقيقي للقوى السوقية."
                             },
                             {
-                                title: "السلايد 2: عقلية الهاوي
+                                slideNumber: 2,
+                                title: "أنواع الشارت",
+                                content: "Line Chart<br>Bar Chart<br>Candlestick Chart",
+                                teacherExplanation: "استخدم الصور الحية لتوضيح كل نوع."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                weekNumber: 3,
+                title: "الأسبوع 3 – Price Action (الأساس)",
+                sessions: [
+                    {
+                        sessionNumber: 7,
+                        title: "الحصة 7: الشموع اليابانية – الفهم وليس الحفظ",
+                        slides: [
+                            {
+                                slideNumber: 1,
+                                title: "ما هي الشمعة اليابانية؟",
+                                content: "الشمعة = حركة سعر خلال فترة زمنية<br>تمثل صراع المشترين والبائعين",
+                                teacherExplanation: "كل شمعة قصة قصيرة عن السوق، تعكس السيطرة بين المشترين والبائعين."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // حالة التطبيق
+        let currentState = {
+            weekIndex: null,
+            sessionIndex: null,
+            slideIndex: 0,
+            darkMode: false,
+            sidebarVisible: true
+        };
+
+        // عناصر DOM
+        const themeToggle = document.getElementById('themeToggle');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const weeksContainer = document.getElementById('weeksContainer');
+        const slidesContainer = document.getElementById('slidesContainer');
+        const currentSessionTitle = document.getElementById('currentSessionTitle');
+        const currentWeekTitle = document.getElementById('currentWeekTitle');
+        const prevSlideBtn = document.getElementById('prevSlideBtn');
+        const nextSlideBtn = document.getElementById('nextSlideBtn');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        // تهيئة الشريط الجانبي
+        function initSidebar() {
+            weeksContainer.innerHTML = '';
+            
+            courseData.forEach((week, weekIndex) => {
+                const weekElement = document.createElement('div');
+                weekElement.className = 'week';
+                
+                const weekHeader = document.createElement('div');
+                weekHeader.className = 'week-header';
+                weekHeader.innerHTML = `
+                    <span>${week.title}</span>
+                    <i class="fas fa-chevron-down"></i>
+                `;
+                
+                const sessionsContainer = document.createElement('div');
+                sessionsContainer.className = 'sessions-container';
+                
+                week.sessions.forEach((session, sessionIndex) => {
+                    const sessionElement = document.createElement('div');
+                    sessionElement.className = 'session';
+                    sessionElement.innerHTML = `
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        ${session.title}
+                    `;
+                    
+                    sessionElement.addEventListener('click', () => {
+                        // إزالة النشاط من جميع الجلسات
+                        document.querySelectorAll('.session.active').forEach(el => {
+                            el.classList.remove('active');
+                        });
+                        
+                        // إضافة النشاط للجلسة المختارة
+                        sessionElement.classList.add('active');
+                        
+                        // فتح الأسبوع إذا كان مغلقًا
+                        if (!weekHeader.classList.contains('active')) {
+                            weekHeader.classList.add('active');
+                            sessionsContainer.classList.add('show');
+                        }
+                        
+                        // تحديث حالة التطبيق وعرض المحتوى
+                        currentState.weekIndex = weekIndex;
+                        currentState.sessionIndex = sessionIndex;
+                        currentState.slideIndex = 0;
+                        
+                        updateContent();
+                        updateProgress();
+                        
+                        // إغلاق الشريط الجانبي على الهواتف
+                        if (window.innerWidth <= 992) {
+                            toggleSidebarVisibility();
+                        }
+                    });
+                    
+                    sessionsContainer.appendChild(sessionElement);
+                });
+                
+                weekHeader.addEventListener('click', () => {
+                    weekHeader.classList.toggle('active');
+                    sessionsContainer.classList.toggle('show');
+                });
+                
+                weekElement.appendChild(weekHeader);
+                weekElement.appendChild(sessionsContainer);
+                weeksContainer.appendChild(weekElement);
+            });
+            
+            // تحديد الجلسة الأولى كنشطة افتراضيًا
+            if (courseData.length > 0 && courseData[0].sessions.length > 0) {
+                const firstSession = weeksContainer.querySelector('.session');
+                if (firstSession) {
+                    firstSession.classList.add('active');
+                    currentState.weekIndex = 0;
+                    currentState.sessionIndex = 0;
+                    updateContent();
+                    updateProgress();
+                }
+            }
+        }
+
+        // تحديث المحتوى
+        function updateContent() {
+            if (currentState.weekIndex === null || currentState.sessionIndex === null) {
+                return;
+            }
+            
+            const week = courseData[currentState.weekIndex];
+            const session = week.sessions[currentState.sessionIndex];
+            const slide = session.slides[currentState.slideIndex];
+            
+            // تحديث العناوين
+            currentSessionTitle.textContent = session.title;
+            currentWeekTitle.textContent = week.title;
+            
+            // تحديث الشرائح
+            slidesContainer.innerHTML = '';
+            
+            const slideElement = document.createElement('div');
+            slideElement.className = 'slide';
+            slideElement.innerHTML = `
+                <div class="slide-header">
+                    <div class="slide-title">${slide.title}</div>
+                    <div class="slide-number">${slide.slideNumber}</div>
+                </div>
+                <div class="slide-content">
+                    <h4>نص السلايد:</h4>
+                    <p>${slide.content.replace(/<br>/g, '<br>')}</p>
+                </div>
+                <div class="teacher-explanation">
+                    <h5><i class="fas fa-user-tie"></i> شرح المدرّس:</h5>
+                    <p>${slide.teacherExplanation}</p>
+                </div>
+            `;
+            
+            slidesContainer.appendChild(slideElement);
+            
+            // تحديث حالة أزرار التحكم
+            prevSlideBtn.disabled = currentState.slideIndex === 0;
+            nextSlideBtn.disabled = currentState.slideIndex === session.slides.length - 1;
+            
+            // تحديث تقدم الدورة
+            updateProgress();
+        }
+
+        // تحديث تقدم الدورة
+        function updateProgress() {
+            if (currentState.weekIndex === null || currentState.sessionIndex === null) {
+                return;
+            }
+            
+            // حساب التقدم العام للدورة
+            let totalSlides = 0;
+            let completedSlides = 0;
+            
+            courseData.forEach((week, weekIdx) => {
+                week.sessions.forEach((session, sessionIdx) => {
+                    session.slides.forEach((slide, slideIdx) => {
+                        totalSlides++;
+                        
+                        // إذا كان المستخدم قد وصل إلى هذه الشريحة أو تجاوزها
+                        if (weekIdx < currentState.weekIndex || 
+                            (weekIdx === currentState.weekIndex && sessionIdx < currentState.sessionIndex) ||
+                            (weekIdx === currentState.weekIndex && sessionIdx === currentState.sessionIndex && slideIdx <= currentState.slideIndex)) {
+                            completedSlides++;
+                        }
+                    });
+                });
+            });
+            
+            const progressPercentage = Math.round((completedSlides / totalSlides) * 100);
+            progressFill.style.width = `${progressPercentage}%`;
+            progressText.textContent = `${progressPercentage}%`;
+        }
+
+        // تبديل الوضع الليلي/النهاري
+        function toggleDarkMode() {
+            currentState.darkMode = !currentState.darkMode;
+            
+            if (currentState.darkMode) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'false');
+            }
+        }
+
+        // تبديل عرض الشريط الجانبي
+        function toggleSidebarVisibility() {
+            currentState.sidebarVisible = !currentState.sidebarVisible;
+            
+            if (currentState.sidebarVisible) {
+                sidebar.classList.remove('collapsed');
+                toggleSidebar.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                sidebar.classList.add('collapsed');
+                toggleSidebar.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        }
+
+        // الانتقال إلى الشريحة السابقة
+        function goToPrevSlide() {
+            if (currentState.slideIndex > 0) {
+                currentState.slideIndex--;
+                updateContent();
+            }
+        }
+
+        // الانتقال إلى الشريحة التالية
+        function goToNextSlide() {
+            const session = courseData[currentState.weekIndex].sessions[currentState.sessionIndex];
+            if (currentState.slideIndex < session.slides.length - 1) {
+                currentState.slideIndex++;
+                updateContent();
+            }
+        }
+
+        // تهيئة التطبيق
+        function initApp() {
+            // تهيئة الشريط الجانبي
+            initSidebar();
+            
+            // استعادة الوضع الليلي من التخزين المحلي
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === 'true') {
+                currentState.darkMode = true;
+                document.body.classList.add('dark-mode');
+            }
+            
+            // إضافة مستمعي الأحداث
+            themeToggle.addEventListener('click', toggleDarkMode);
+            toggleSidebar.addEventListener('click', toggleSidebarVisibility);
+            prevSlideBtn.addEventListener('click', goToPrevSlide);
+            nextSlideBtn.addEventListener('click', goToNextSlide);
+            
+            // تحديث تقدم الدورة
+            updateProgress();
+            
+            // إضافة مستمع للوحة المفاتيح للتنقل بين الشرائح
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    goToPrevSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    goToNextSlide();
+                }
+            });
+            
+            // إغلاق الشريط الجانبي تلقائيًا على الهواتف
+            if (window.innerWidth <= 992) {
+                toggleSidebarVisibility();
+            }
+        }
+
+        // بدء تشغيل التطبيق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
